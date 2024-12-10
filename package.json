@@ -1,8 +1,14 @@
 {
-	"scripts":{
-		"format":"prettier --write \"src/**/*.{js,jsx,css,html}\""
+	"scripts": {
+		"format": "prettier --write \"**/**/*.{js,jsx,css,html}\"",
+		"lint":"eslint"
 	},
-  "dependencies": {
-    "prettier": "^3.4.2"
-  }
+	"dependencies": {
+		"prettier": "^3.4.2"
+	},
+	"devDependencies": {
+		"eslint": "^9.9.1",
+		"eslint-config-prettier": "^9.1.0",
+		"globals": "^15.9.0"
+	}
 }

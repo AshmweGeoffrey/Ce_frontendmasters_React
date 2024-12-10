@@ -1,2 +1,3 @@
 node_modules/
-0x00-Base/node_modules
+0x00-Base/node_modules/
+.vscode/
