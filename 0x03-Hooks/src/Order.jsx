@@ -1,8 +1,29 @@
 import Pizza from "./Pizza";
-import { useState } from "react";
+import { useEffect,useState } from "react";
+const intl = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 export default function Order() {
+  const [PizzaTypes,setPizzaTypes] = useState([]);
   const [PizzaType, setPizzaType] = useState("pepperoni");
   const [PizzaSize, setPizzaSize] = useState("M");
+  const [loading,setLoading] =useState(true);
+  let price, selectedPizza;
+  if(!loading){
+        selectedPizza = PizzaTypes.find((pizza) => PizzaType === pizza.name);
+        price = intl.format(selectedPizza?.sizes ? selectedPizza.sizes[PizzaSize] : 0);
+        
+    }
+  async function fetchPizzaTypes() {
+    const response = await fetch("/api/pizzas");
+    const data = await response.json();
+    setPizzaTypes(data);
+    setLoading(false);
+  }
+  useEffect(() => {
+    fetchPizzaTypes();
+  }, []);
   return (
     <div className="order">
       <h2>Create Order</h2>
@@ -16,9 +37,12 @@ export default function Order() {
               id=""
               value={PizzaType}
             >
-              <option value="pepperoni">The Pepperoni Pizza</option>
-              <option value="hawaiian">The Hawaiian Pizza</option>
-              <option value="big-meat">Big Meat Pizza</option>
+              {PizzaTypes.map((pizza) =>
+              (
+                <option key={pizza.name} value={pizza.name}>
+                  {pizza.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -26,10 +50,10 @@ export default function Order() {
             <div>
               <span>
                 <input
-                  checked={PizzaSize === "Small"}
+                  checked={PizzaSize === "S"}
                   type="radio"
                   name="pizza-size"
-                  value="Small"
+                  value="S"
                   id="pizza-s"
                   onChange={(e) => setPizzaSize(e.target.value)}
                 />
@@ -37,10 +61,10 @@ export default function Order() {
               </span>
               <span>
                 <input
-                  checked={PizzaSize === "Medium"}
+                  checked={PizzaSize === "M"}
                   type="radio"
                   name="pizza-size"
-                  value="Medium"
+                  value="M"
                   id="pizza-m"
                   onChange={(e) => setPizzaSize(e.target.value)}
                 />
@@ -48,10 +72,10 @@ export default function Order() {
               </span>
               <span>
                 <input
-                  checked={PizzaSize === "Large"}
+                  checked={PizzaSize === "L"}
                   type="radio"
                   name="pizza-size"
-                  value="Large"
+                  value="L"
                   id="pizza-l"
                   onChange={(e) => setPizzaSize(e.target.value)}
                 />
@@ -60,13 +84,22 @@ export default function Order() {
             </div>
           </div>
           <button type="submit">Add to Cart</button>
+
           <div>
-            <Pizza
-              name="Cheese"
-              description="Cheese Pizza"
-              image={"/public/pizzas/bbq_ckn.webp"}
-            />
-            <p>$13.34</p>
+        {loading ? (
+        <h3>LOADING …</h3>
+        ) : (
+        selectedPizza && (
+        <div className="order-pizza">
+        <Pizza
+          name={selectedPizza.name}
+          description={selectedPizza.description}
+          image={selectedPizza.image}
+        />
+        <p>{price}</p>
+        </div>
+        )
+        )}
           </div>
         </div>
       </form>
