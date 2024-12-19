@@ -1,20 +1,23 @@
 import Pizza from "./Pizza";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import Cart from './Cart';
 const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
 export default function Order() {
-  const [PizzaTypes,setPizzaTypes] = useState([]);
-  const [PizzaType, setPizzaType] = useState("pepperoni");
+  const [PizzaTypes, setPizzaTypes] = useState([]);
+  const [PizzaType, setPizzaType] = useState("The Barbecue Chicken Pizza");
   const [PizzaSize, setPizzaSize] = useState("M");
-  const [loading,setLoading] =useState(true);
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
   let price, selectedPizza;
-  if(!loading){
-        selectedPizza = PizzaTypes.find((pizza) => PizzaType === pizza.name);
-        price = intl.format(selectedPizza?.sizes ? selectedPizza.sizes[PizzaSize] : 0);
-        
-    }
+  if (!loading) {
+    selectedPizza = PizzaTypes.find((pizza) => PizzaType === pizza.name);
+    price = intl.format(
+      selectedPizza?.sizes ? selectedPizza.sizes[PizzaSize] : 0,
+    );
+  }
   async function fetchPizzaTypes() {
     const response = await fetch("/api/pizzas");
     const data = await response.json();
@@ -27,7 +30,11 @@ export default function Order() {
   return (
     <div className="order">
       <h2>Create Order</h2>
-      <form>
+      <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        setCart([...cart, {name: PizzaType, size: PizzaSize}]);
+      }}>
         <div>
           <div>
             <label htmlFor="pizza-type">Pizza Type </label>
@@ -37,8 +44,7 @@ export default function Order() {
               id=""
               value={PizzaType}
             >
-              {PizzaTypes.map((pizza) =>
-              (
+              {PizzaTypes.map((pizza) => (
                 <option key={pizza.name} value={pizza.name}>
                   {pizza.name}
                 </option>
@@ -84,25 +90,27 @@ export default function Order() {
             </div>
           </div>
           <button type="submit">Add to Cart</button>
-
-          <div>
-        {loading ? (
-        <h3>LOADING …</h3>
-        ) : (
-        selectedPizza && (
-        <div className="order-pizza">
-        <Pizza
-          name={selectedPizza.name}
-          description={selectedPizza.description}
-          image={selectedPizza.image}
-        />
-        <p>{price}</p>
-        </div>
-        )
-        )}
           </div>
-        </div>
+          <div>
+            {loading ? (
+              <h3>LOADING …</h3>
+            ) : (
+              selectedPizza && (
+                <div className="order-pizza">
+                  <Pizza
+                    name={selectedPizza.name}
+                    description={selectedPizza.description}
+                    image={selectedPizza.image}
+                  />
+                  <p>{price}</p>
+                </div>
+              )
+            )}
+          </div>
       </form>
+      <div>
+            {loading ? <h2>LOADING...</h2> : <Cart cart={cart} />}
+          </div>
     </div>
   );
 }
