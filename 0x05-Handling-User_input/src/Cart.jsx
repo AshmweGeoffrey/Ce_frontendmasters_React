@@ -1,7 +1,8 @@
 const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
-  currency: "USD",
+  currency: "USD", // feel free to change to your local currency
 });
+
 export default function Cart({ cart, checkout }) {
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
@@ -14,8 +15,8 @@ export default function Cart({ cart, checkout }) {
       <ul>
         {cart.map((item, index) => (
           <li key={index}>
-            <span className="size">{item.size}</span>
-            <span className="type">{item.pizza.name}</span>
+            <span className="size">{item.size}</span> –
+            <span className="type">{item.pizza.name}</span> –
             <span className="price">{item.price}</span>
           </li>
         ))}

@@ -1,9 +1,11 @@
 import { usePizzaOfTheDay } from "./usePizzaOfTheDay";
 
-const intl = new Intl.NumberFormat("en", {
+// feel free to change en-US / USD to your locale
+const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
+
 const PizzaOfTheDay = () => {
   const pizzaOfTheDay = usePizzaOfTheDay();
 
@@ -31,4 +33,5 @@ const PizzaOfTheDay = () => {
     </div>
   );
 };
+
 export default PizzaOfTheDay;

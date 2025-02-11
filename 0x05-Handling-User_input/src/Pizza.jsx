@@ -7,4 +7,5 @@ const Pizza = (props) => {
     </div>
   );
 };
+
 export default Pizza;

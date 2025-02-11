@@ -7,16 +7,16 @@ import reactPlugin from "eslint-plugin-react";
 export default [
   js.configs.recommended,
   {
-  ...reactPlugin.configs.flat.recommended,
-  settings: {
-    react: {
-      version: "detect",
+    ...reactPlugin.configs.flat.recommended,
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
   },
-},
-reactPlugin.configs.flat["jsx-runtime"],
+  reactPlugin.configs.flat["jsx-runtime"],
   {
-    files: ["**/*.js"],
+    files: ["**/*.js", "**/*.jsx"],
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
       parserOptions: {
