@@ -1,6 +1,6 @@
 import Pizza from "./Pizza";
 import { useEffect, useState } from "react";
-import Cart from './Cart';
+import Cart from "./Cart";
 const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -31,10 +31,11 @@ export default function Order() {
     <div className="order">
       <h2>Create Order</h2>
       <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setCart([...cart, {name: PizzaType, size: PizzaSize}]);
-      }}>
+        onSubmit={(e) => {
+          e.preventDefault();
+          setCart([...cart, { name: PizzaType, size: PizzaSize }]);
+        }}
+      >
         <div>
           <div>
             <label htmlFor="pizza-type">Pizza Type </label>
@@ -90,27 +91,25 @@ export default function Order() {
             </div>
           </div>
           <button type="submit">Add to Cart</button>
-          </div>
-          <div>
-            {loading ? (
-              <h3>LOADING …</h3>
-            ) : (
-              selectedPizza && (
-                <div className="order-pizza">
-                  <Pizza
-                    name={selectedPizza.name}
-                    description={selectedPizza.description}
-                    image={selectedPizza.image}
-                  />
-                  <p>{price}</p>
-                </div>
-              )
-            )}
-          </div>
+        </div>
+        <div>
+          {loading ? (
+            <h3>LOADING …</h3>
+          ) : (
+            selectedPizza && (
+              <div className="order-pizza">
+                <Pizza
+                  name={selectedPizza.name}
+                  description={selectedPizza.description}
+                  image={selectedPizza.image}
+                />
+                <p>{price}</p>
+              </div>
+            )
+          )}
+        </div>
       </form>
-      <div>
-            {loading ? <h2>LOADING...</h2> : <Cart cart={cart} />}
-          </div>
+      <div>{loading ? <h2>LOADING...</h2> : <Cart cart={cart} />}</div>
     </div>
   );
 }
