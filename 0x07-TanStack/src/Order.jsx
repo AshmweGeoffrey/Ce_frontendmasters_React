@@ -15,7 +15,6 @@ export default function Order() {
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useContext(CartContext);
 
-
   async function checkout() {
     setLoading(true);
 

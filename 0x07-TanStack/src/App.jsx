@@ -12,11 +12,11 @@ const App = () => {
   return (
     <StrictMode>
       <CartContext.Provider value={carthook}>
-      <div>
-        <Header />
-        <Order />
-        <PizzaOfTheDay />
-      </div>
+        <div>
+          <Header />
+          <Order />
+          <PizzaOfTheDay />
+        </div>
       </CartContext.Provider>
     </StrictMode>
   );
