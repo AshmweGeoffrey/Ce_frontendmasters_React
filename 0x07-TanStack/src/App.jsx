@@ -6,7 +6,6 @@ import { routeTree } from "./routeTree.gen";
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
 
-
 const App = () => {
   return (
     <StrictMode>
@@ -16,7 +15,6 @@ const App = () => {
     </StrictMode>
   );
 };
-
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(<App />);
