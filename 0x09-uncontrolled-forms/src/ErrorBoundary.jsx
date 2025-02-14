@@ -23,5 +23,5 @@ class ErrorBoundary extends Component {
     return this.props.children;
     }
 }
-ErrorBoundary.getDerivedstateFrom()
+ErrorBoundary.getDerivedstateFromError()
 export default ErrorBoundary 
