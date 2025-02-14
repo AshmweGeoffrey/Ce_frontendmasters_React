@@ -1,11 +1,11 @@
-# React Pizza Shop Learning Project
+# Ce_frontendmasters_React
 
 A full-stack React application built while learning React fundamentals through Frontend Masters. This project implements a pizza shop ordering system with both client and server components.
 
 ## Project Structure
 
 ```
-📦 React-Pizza-Project
+📦 Ce_frontendmasters_React
 ├── 0x00-Base/                 # Basic React concepts
 ├── 0x01-config/               # Project configuration
 ├── 0x02-jsx/                  # JSX fundamentals
@@ -56,7 +56,7 @@ A full-stack React application built while learning React fundamentals through F
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd React-Pizza-Project
+cd Ce_frontendmasters_React
 ```
 
 2. Install and start the server:
